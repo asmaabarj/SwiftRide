@@ -26,9 +26,10 @@ public class Reservation {
     private Address departureAddress;
 
     @Embedded
-    @AttributeOverride(name = "city", column = @Column(name = "departure_city"))
-    @AttributeOverride(name = "district", column = @Column(name = "departure_district"))
+    @AttributeOverride(name = "city", column = @Column(name = "arrival_city")) // Utiliser un nom différent
+    @AttributeOverride(name = "district", column = @Column(name = "arrival_district")) // Utiliser un nom différent
     private Address arrivalAddress;
+
 
     @Column(nullable = false)
     private Double price;

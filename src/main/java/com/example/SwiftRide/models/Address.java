@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 @Data
-class Address {
+public class Address {
     private String city;
 
     private String district;
