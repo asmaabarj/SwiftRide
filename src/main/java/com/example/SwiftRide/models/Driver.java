@@ -4,29 +4,17 @@ import javax.persistence.*;
 import java.time.LocalTime;
 
 import com.example.SwiftRide.models.enums.AvailabilityStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Entity
-@Table(name = "drivers")
-@Getter
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Driver {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
+@EqualsAndHashCode(callSuper = false)
+@Entity(name = "Drivers")
+@DiscriminatorValue("Driver")
+public class Driver extends User{
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private AvailabilityStatus status;
