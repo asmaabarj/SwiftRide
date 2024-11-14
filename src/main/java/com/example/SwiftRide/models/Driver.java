@@ -5,23 +5,16 @@ import java.time.LocalTime;
 
 import com.example.SwiftRide.models.enums.AvailabilityStatus;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Entity
-@Table(name = "drivers")
 @Data
+@SuperBuilder
 @NoArgsConstructor
-public class Driver {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@Entity(name = "Drivers")
+@DiscriminatorValue("Driver")
+public class Driver extends User{
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private AvailabilityStatus status;
