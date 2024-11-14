@@ -4,17 +4,12 @@ import javax.persistence.*;
 import java.time.LocalTime;
 
 import com.example.SwiftRide.models.enums.AvailabilityStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "drivers")
-@Getter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Driver {
 
     @Id

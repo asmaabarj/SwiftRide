@@ -5,6 +5,7 @@ import lombok.Data;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,8 +18,8 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reservation_datetime", nullable = false)
-    private LocalDateTime reservationDateTime;
+    @Column(name = "reservation_date", nullable = false)
+    private LocalDate reservationDate;
 
     @Embedded
     @AttributeOverride(name = "city", column = @Column(name = "departure_city"))
