@@ -73,7 +73,7 @@ public class DriverServiceImpl implements DriverService {
         return driverRepository.findAll().stream().map(driver -> modelMapper.map(driver, DriverDTO.class)).collect(Collectors.toList());
     }
 
-
+    @Override
     public DriverAnalyticsDTO getDriverAnalytics() {
         List<Driver> drivers = driverRepository.findAll();
 

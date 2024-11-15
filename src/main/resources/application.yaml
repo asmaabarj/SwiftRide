@@ -4,5 +4,10 @@ server:
 spring:
   profiles:
     active: dev
+  jpa:
+    properties:
+      hibernate.hibernate.format_sql: true
+      hibernate.show_sql: true
+
 
 debug: true

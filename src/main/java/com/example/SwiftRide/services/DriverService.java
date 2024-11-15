@@ -1,5 +1,6 @@
 package com.example.SwiftRide.services;
 
+import com.example.SwiftRide.dto.DriverAnalyticsDTO;
 import com.example.SwiftRide.dto.DriverDTO;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface DriverService {
     DriverDTO updateDriver(DriverDTO driverDTO);
     void deleteDriver(Long id);
     List<DriverDTO> getAllDriver();
+    DriverAnalyticsDTO getDriverAnalytics();
 }
