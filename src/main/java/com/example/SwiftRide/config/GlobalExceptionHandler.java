@@ -1,13 +1,19 @@
 package com.example.SwiftRide.config;
 
+import com.example.SwiftRide.exceptions.DistanceTooLongException;
+import com.example.SwiftRide.exceptions.DriverNotAvailableException;
+import com.example.SwiftRide.exceptions.ReservationStatusException;
+import com.example.SwiftRide.exceptions.VehicleNotAvailableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,5 +48,35 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleGeneralException(Exception ex) {
         log.error("Unexpected error: {}", ex.getMessage(), ex);
         return createErrorResponse(ex.getMessage());
+    }
+
+    @ExceptionHandler(DistanceTooLongException.class)
+    public ResponseEntity<String> handleDistanceTooLongException(DistanceTooLongException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DriverNotAvailableException.class)
+    public ResponseEntity<String> handleDriverNotAvailableException(DriverNotAvailableException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(VehicleNotAvailableException.class)
+    public ResponseEntity<String> handleVehicleNotAvailableException(VehicleNotAvailableException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ReservationStatusException.class)
+    public ResponseEntity<String> handleReservationStatusException(ReservationStatusException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

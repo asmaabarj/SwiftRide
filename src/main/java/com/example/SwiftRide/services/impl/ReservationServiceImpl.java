@@ -2,6 +2,10 @@ package com.example.SwiftRide.services.impl;
 
 import com.example.SwiftRide.dto.ReservationDTO.ReservationRequestDTO;
 import com.example.SwiftRide.dto.ReservationDTO.ReservationResponseDTO;
+import com.example.SwiftRide.exceptions.DistanceTooLongException;
+import com.example.SwiftRide.exceptions.DriverNotAvailableException;
+import com.example.SwiftRide.exceptions.ReservationStatusException;
+import com.example.SwiftRide.exceptions.VehicleNotAvailableException;
 import com.example.SwiftRide.models.Reservation;
 import com.example.SwiftRide.repositories.ReservationRepository;
 import com.example.SwiftRide.services.ReservationService;
@@ -33,15 +37,15 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationResponseDTO createReservation(ReservationRequestDTO reservationRequestDTO) {
         if (reservationRequestDTO.getDistanceKm() > 100) {
-            throw new IllegalArgumentException("Maximum distance is 100km");
+            throw new DistanceTooLongException("Maximum distance is 100km");
         }
 
         if (!isDriverAvailable(reservationRequestDTO.getDriverId(), reservationRequestDTO.getStartTime(), reservationRequestDTO.getEndTime())) {
-            throw new IllegalArgumentException("Driver is not available for the selected time.");
+            throw new DriverNotAvailableException("Driver is not available for the selected time.");
         }
 
         if (!isVehicleAvailable(reservationRequestDTO.getVehicleId(), reservationRequestDTO.getStartTime(), reservationRequestDTO.getEndTime())) {
-            throw new IllegalArgumentException("Vehicle is not available for the selected time.");
+            throw new VehicleNotAvailableException("Vehicle is not available for the selected time.");
         }
 
         Reservation reservation = reservationMapper.toReservation(reservationRequestDTO);
@@ -58,19 +62,19 @@ public class ReservationServiceImpl implements ReservationService {
                 .orElseThrow(() -> new EntityNotFoundException("Reservation not found with ID: " + id));
 
         if (!isReservationStatusValid(id)) {
-            throw new IllegalStateException("Cannot update a reservation with a status of CONFIRMED or COMPLETED.");
+            throw new ReservationStatusException("Cannot update a reservation with a status of CONFIRMED or COMPLETED.");
         }
 
         if (reservationRequestDTO.getDistanceKm() > 100) {
-            throw new IllegalArgumentException("Maximum distance is 100km");
+            throw new DistanceTooLongException("Maximum distance is 100km");
         }
 
         if (!isDriverAvailable(reservationRequestDTO.getDriverId(), reservationRequestDTO.getStartTime(), reservationRequestDTO.getEndTime())) {
-            throw new IllegalArgumentException("Driver is not available for the selected time.");
+            throw new DriverNotAvailableException("Driver is not available for the selected time.");
         }
 
         if (!isVehicleAvailable(reservationRequestDTO.getVehicleId(), reservationRequestDTO.getStartTime(), reservationRequestDTO.getEndTime())) {
-            throw new IllegalArgumentException("Vehicle is not available for the selected time.");
+            throw new VehicleNotAvailableException("Vehicle is not available for the selected time.");
         }
 
         reservationMapper.updateEntityFromDTO(reservationRequestDTO, existingReservation);
