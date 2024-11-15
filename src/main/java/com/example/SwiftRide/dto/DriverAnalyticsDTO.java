@@ -2,6 +2,7 @@ package com.example.SwiftRide.dto;
 
 import com.example.SwiftRide.models.enums.AvailabilityStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class DriverAnalyticsDTO {
     private double occupancyRate;
     private Map<AvailabilityStatus, Integer> statusDistribution;
