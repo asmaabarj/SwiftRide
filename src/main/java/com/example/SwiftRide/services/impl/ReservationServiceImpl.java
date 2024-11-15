@@ -111,15 +111,17 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public boolean isDriverAvailable(long driverId, LocalDateTime reservationStartTime, LocalDateTime reservationEndTime) {
-        List<Reservation> existingReservations = reservationRepository.findByDriverIdAndStartTimeBeforeAndEndTimeAfter(driverId, reservationStartTime, reservationEndTime);
+        List<Reservation> existingReservations = reservationRepository.findByDriverIdAndTimeOverlap(driverId, reservationStartTime, reservationEndTime);
         return existingReservations.isEmpty();
     }
 
+
     @Override
     public boolean isVehicleAvailable(long vehicleId, LocalDateTime reservationStartTime, LocalDateTime reservationEndTime) {
-        List<Reservation> existingReservations = reservationRepository.findByVehicleIdAndStartTimeBeforeAndEndTimeAfter(vehicleId, reservationStartTime, reservationEndTime);
+        List<Reservation> existingReservations = reservationRepository.findByVehicleIdAndTimeOverlap(vehicleId, reservationStartTime, reservationEndTime);
         return existingReservations.isEmpty();
     }
+
 
     @Override
     public boolean isReservationStatusValid(long reservationId) {
