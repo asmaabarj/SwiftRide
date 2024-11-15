@@ -3,11 +3,11 @@ package com.example.SwiftRide.models;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +18,7 @@ public class Client extends User{
 
     @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations;
 }

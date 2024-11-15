@@ -1,13 +1,16 @@
 package com.example.SwiftRide.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import com.example.SwiftRide.models.enums.AvailabilityStatus;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Data
+@Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,5 +27,8 @@ public class Driver extends User{
 
     @Column(name = "availability_end", nullable = false)
     private LocalTime availabilityEnd;
+
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations;
 }
 

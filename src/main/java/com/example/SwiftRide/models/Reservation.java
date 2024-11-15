@@ -3,23 +3,18 @@ package com.example.SwiftRide.models;
 import com.example.SwiftRide.models.enums.ReservationStatus;
 import lombok.Data;
 
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reservations")
 @Data
-
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reservation_date", nullable = false)
-    private LocalDate reservationDate;
 
     @Embedded
     @AttributeOverride(name = "city", column = @Column(name = "departure_city"))
@@ -27,14 +22,15 @@ public class Reservation {
     private Address departureAddress;
 
     @Embedded
-    @AttributeOverride(name = "city", column = @Column(name = "arrival_city")) // Utiliser un nom différent
-    @AttributeOverride(name = "district", column = @Column(name = "arrival_district")) // Utiliser un nom différent
+    @AttributeOverride(name = "city", column = @Column(name = "arrival_city"))
+    @AttributeOverride(name = "district", column = @Column(name = "arrival_district"))
     private Address arrivalAddress;
-
 
     @Column(nullable = false)
     private Double price;
 
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     @Column(name = "distance_km", nullable = false)
     private Double distanceKm;
 
@@ -47,7 +43,10 @@ public class Reservation {
     private Driver driver;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
-
 }

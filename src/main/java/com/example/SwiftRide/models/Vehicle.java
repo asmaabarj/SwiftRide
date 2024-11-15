@@ -1,35 +1,40 @@
 package com.example.SwiftRide.models;
 
 import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.GenerationType;
+import javax.validation.constraints.*;
 
 import com.example.SwiftRide.models.enums.AvailabilityStatus;
 import com.example.SwiftRide.models.enums.VehiculeType;
+
 import lombok.*;
 
 @Entity
-@Table(name = "vehicles")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Vehicle {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "model", nullable = false)
-    private String model;
+    @NotBlank(message = "Le modèle est obligatoire")
+    private String modele;
 
-    @Column(name = "license_plate", nullable = false, unique = true)
-    private String licensePlate;
+    @NotBlank(message = "L'immatriculation est obligatoire")
+    @Column(unique = true)
+    private String immatriculation;
 
-    @Column(name = "mileage", nullable = false)
-    private double mileage;
+    @Min(value = 0, message = "Le kilométrage ne peut pas être négatif")
+    private double kilometrage;
 
+    @NotNull(message = "Le statut est obligatoire")
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private AvailabilityStatus status;
+    private AvailabilityStatus statut;
 
+    @NotNull(message = "Le type est obligatoire")
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
     private VehiculeType type;
 }

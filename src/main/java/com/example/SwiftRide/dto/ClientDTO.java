@@ -1,9 +1,6 @@
 package com.example.SwiftRide.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
@@ -12,7 +9,8 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 @SuperBuilder
 public class ClientDTO extends UserDTO{
     @NotBlank (message = "phoneNumber is required")

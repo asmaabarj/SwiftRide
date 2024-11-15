@@ -3,15 +3,14 @@ package com.example.SwiftRide.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 @SuperBuilder
 public class UserDTO {
     @Builder.Default
@@ -32,5 +31,6 @@ public class UserDTO {
     @NotBlank(message = "idc is required")
     @Size(min = 7, max = 8, message = "idc must be 8 characters")
     private String idc;
+
 }
 

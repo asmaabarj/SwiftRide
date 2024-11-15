@@ -1,50 +1,62 @@
 package com.example.SwiftRide.controllers;
 
-import com.example.SwiftRide.dto.ReservationDTO;
+import com.example.SwiftRide.dto.ReservationDTO.ReservationRequestDTO;
+import com.example.SwiftRide.dto.ReservationDTO.ReservationResponseDTO;
 import com.example.SwiftRide.services.ReservationService;
+import com.example.SwiftRide.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservations")
+@Validated
 public class ReservationController {
 
+    private final ReservationService reservationService;
+
     @Autowired
-    private ReservationService reservationService;
-
-    @GetMapping
-    public List<ReservationDTO> getAllReservations() {
-        return reservationService.getAllReservations();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id) {
-        return reservationService.getReservationById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
     }
 
     @PostMapping
-    public ReservationDTO createReservation(@RequestBody ReservationDTO reservationDTO) {
-        return reservationService.createReservation(reservationDTO);
+    public ResponseEntity<ReservationResponseDTO> createReservation(@Valid @RequestBody ReservationRequestDTO reservationRequest) {
+        ReservationResponseDTO reservationResponse = reservationService.createReservation(reservationRequest);
+        return new ResponseEntity<>(reservationResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReservationResponseDTO>> getAllReservations() {
+        List<ReservationResponseDTO> reservations = reservationService.getAllReservations();
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable Long id) {
+        ReservationResponseDTO reservationResponse = reservationService.getReservationById(id);
+        if (reservationResponse == null) {
+            throw new ResourceNotFoundException("Reservation not found with ID: " + id);
+        }
+        return new ResponseEntity<>(reservationResponse, HttpStatus.OK);
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationDTO> updateReservation(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO) {
-        try {
-            ReservationDTO updatedReservation = reservationService.updateReservation(id, reservationDTO);
-            return ResponseEntity.ok(updatedReservation);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ReservationResponseDTO> updateReservation(@PathVariable Long id,
+                                                                    @Valid @RequestBody ReservationRequestDTO reservationRequest) {
+        ReservationResponseDTO updatedReservation = reservationService.updateReservation(id, reservationRequest);
+        return new ResponseEntity<>(updatedReservation, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
