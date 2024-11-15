@@ -1,6 +1,7 @@
 package com.example.SwiftRide.services.impl;
 
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import com.example.SwiftRide.exceptions.AlreadyExistsException;
 import com.example.SwiftRide.exceptions.DoesNotExistsException;
 import com.example.SwiftRide.models.Vehicle;
 import com.example.SwiftRide.models.enums.AvailabilityStatus;
+import com.example.SwiftRide.models.enums.VehiculeType;
 import com.example.SwiftRide.repositories.VehicleRepository;
 import com.example.SwiftRide.services.VehicleService;
 import com.example.SwiftRide.utils.VehicleMapper;
@@ -48,9 +50,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Page<VehicleDTO> getAllVehicles(Pageable pageable) {
+    public List<VehicleDTO> getAllVehicles() {
         log.debug("Récupération de tous les véhicules");
-        return vehicleRepository.findAll(pageable).map(vehicleMapper::toDTO);
+        return vehicleRepository.findAll().stream()
+                .map(vehicleMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -72,6 +76,50 @@ public class VehicleServiceImpl implements VehicleService {
         }
         vehicleRepository.deleteById(id);
     }
+
+
+    @Override
+    public VehicleAnalyticsDTO getAnalytics() {
+        VehicleAnalyticsDTO analytics = new VehicleAnalyticsDTO();
+        
+        Map<String, Double> kmMoyen = vehicleRepository.getAverageKilometrageByType().stream()
+            .collect(Collectors.toMap(
+                row -> ((VehiculeType) row[0]).name(),
+                row -> (Double) row[1]
+            ));
+        analytics.setKilometrageMoyenParType(kmMoyen);
+        
+        Map<String, Double> prixParKm = Arrays.stream(VehiculeType.values())
+            .collect(Collectors.toMap(
+                VehiculeType::name,
+                VehiculeType::getPricePerKm
+            ));
+        analytics.setPrixParKmParType(prixParKm);
+        
+        Map<String, Double> tauxUtilisation = vehicleRepository.getUtilizationRateByType().stream()
+            .collect(Collectors.toMap(
+                row -> ((VehiculeType) row[0]).name(),
+                row -> ((Long) row[1]) * 100.0 / vehicleRepository.count()
+            ));
+        analytics.setTauxUtilisationParType(tauxUtilisation);
+        
+        Map<String, Long> etatFlotte = vehicleRepository.getFleetStatus().stream()
+            .collect(Collectors.toMap(
+                row -> ((AvailabilityStatus) row[0]).name(),
+                row -> (Long) row[1]
+            ));
+        analytics.setEtatFlotte(etatFlotte);
+        
+        return analytics;
+    }
+
+    @Override
+    public Page<VehicleDTO> getVehiclesWithPagination(Pageable pageable) {
+        Page<Vehicle> vehiclePage = vehicleRepository.findAll(pageable);
+        return vehiclePage.map(vehicleMapper::toDTO);
+    }
+
+
 
 
 }
