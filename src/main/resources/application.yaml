@@ -3,6 +3,20 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: prod
+  jpa:
+    properties:
+      hibernate.hibernate.format_sql: true
+      hibernate.show_sql: true
+
 
 debug: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
