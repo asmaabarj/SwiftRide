@@ -1,0 +1,24 @@
+# Logging level
+logging:
+  level:
+    root: DEBUG
+
+# JPA/Hibernate configuration for development
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  # Data source configuration for development
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:5432/swiftDrive_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password:
+
+
+  # Enable/disable specific features
+  devtools:
+    restart:
+      enabled: true
