@@ -11,3 +11,4 @@ public class VehicleAnalyticsDTO {
     private Map<String, Long> etatFlotte;
     private Map<String, Double> prixParKmParType;
 }
+

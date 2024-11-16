@@ -81,35 +81,35 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public VehicleAnalyticsDTO getAnalytics() {
         VehicleAnalyticsDTO analytics = new VehicleAnalyticsDTO();
-
+        
         Map<String, Double> kmMoyen = vehicleRepository.getAverageKilometrageByType().stream()
-                .collect(Collectors.toMap(
-                        row -> ((VehiculeType) row[0]).name(),
-                        row -> (Double) row[1]
-                ));
+            .collect(Collectors.toMap(
+                row -> ((VehiculeType) row[0]).name(),
+                row -> (Double) row[1]
+            ));
         analytics.setKilometrageMoyenParType(kmMoyen);
-
+        
         Map<String, Double> prixParKm = Arrays.stream(VehiculeType.values())
-                .collect(Collectors.toMap(
-                        VehiculeType::name,
-                        VehiculeType::getPricePerKm
-                ));
+            .collect(Collectors.toMap(
+                VehiculeType::name,
+                VehiculeType::getPricePerKm
+            ));
         analytics.setPrixParKmParType(prixParKm);
-
+        
         Map<String, Double> tauxUtilisation = vehicleRepository.getUtilizationRateByType().stream()
-                .collect(Collectors.toMap(
-                        row -> ((VehiculeType) row[0]).name(),
-                        row -> ((Long) row[1]) * 100.0 / vehicleRepository.count()
-                ));
+            .collect(Collectors.toMap(
+                row -> ((VehiculeType) row[0]).name(),
+                row -> ((Long) row[1]) * 100.0 / vehicleRepository.count()
+            ));
         analytics.setTauxUtilisationParType(tauxUtilisation);
-
+        
         Map<String, Long> etatFlotte = vehicleRepository.getFleetStatus().stream()
-                .collect(Collectors.toMap(
-                        row -> ((AvailabilityStatus) row[0]).name(),
-                        row -> (Long) row[1]
-                ));
+            .collect(Collectors.toMap(
+                row -> ((AvailabilityStatus) row[0]).name(),
+                row -> (Long) row[1]
+            ));
         analytics.setEtatFlotte(etatFlotte);
-
+        
         return analytics;
     }
 

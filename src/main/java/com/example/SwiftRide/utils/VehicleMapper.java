@@ -20,4 +20,4 @@ public class VehicleMapper {
     public Vehicle toEntity(VehicleDTO vehicleDTO) {
         return modelMapper.map(vehicleDTO, Vehicle.class);
     }
-}
+} 
