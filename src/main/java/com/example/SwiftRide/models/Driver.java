@@ -22,10 +22,10 @@ public class Driver extends User{
     @Column(name = "status", nullable = false)
     private AvailabilityStatus status;
 
-    @Column(name = "availability_start", nullable = false)
+    @Column(name = "availabilityStart", nullable = false)
     private LocalTime availabilityStart;
 
-    @Column(name = "availability_end", nullable = false)
+    @Column(name = "availabilityEnd", nullable = false)
     private LocalTime availabilityEnd;
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)

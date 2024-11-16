@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -16,7 +17,7 @@ import java.time.LocalTime;
 @Getter
 @SuperBuilder
 public class DriverDTO extends UserDTO{
-    @NotBlank(message = "status is required")
+    @NotNull(message = "status is required")
     private AvailabilityStatus status;
 
     @NotBlank(message = "availabilityStart is required")
