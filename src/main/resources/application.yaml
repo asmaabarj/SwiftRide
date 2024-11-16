@@ -1,11 +1,9 @@
 server:
-  port: 8088
-  servlet:
-    context-path: /api
+  port: 8087
 
 spring:
   profiles:
-    active: dev
+    active: prod
   jpa:
     properties:
       hibernate.hibernate.format_sql: true

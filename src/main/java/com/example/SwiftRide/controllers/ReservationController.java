@@ -1,5 +1,6 @@
 package com.example.SwiftRide.controllers;
 
+import com.example.SwiftRide.dto.ReservationAnalyticsDTO;
 import com.example.SwiftRide.dto.ReservationDTO.ReservationRequestDTO;
 import com.example.SwiftRide.dto.ReservationDTO.ReservationResponseDTO;
 import com.example.SwiftRide.services.ReservationService;
@@ -58,5 +59,10 @@ public class ReservationController {
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/analytics")
+    public ReservationAnalyticsDTO getAnalytics() {
+        return reservationService.getAnalytics();
     }
 }

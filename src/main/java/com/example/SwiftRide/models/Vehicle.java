@@ -10,6 +10,8 @@ import com.example.SwiftRide.models.enums.VehiculeType;
 
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -37,4 +39,7 @@ public class Vehicle {
     @NotNull(message = "Le type est obligatoire")
     @Enumerated(EnumType.STRING)
     private VehiculeType type;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations;
 }

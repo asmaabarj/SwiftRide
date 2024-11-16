@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "ffdbdae3-e5fa-490c-92f0-55a653518f8a",
+		"name": "swiftRide",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33948002",
+		"_collection_link": "https://swiftride.postman.co/workspace/swiftRide-Workspace~6a0684b1-c2e4-4273-81b6-afde2de9ad7b/collection/33948002-ffdbdae3-e5fa-490c-92f0-55a653518f8a?action=share&source=collection_link&creator=33948002"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Get All Client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_2}}",
+							"host": [
+								"{{base_url_2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"fname\": \"maria\",\r\n    \"lname\": \"doe\",\r\n    \"email\": \"john@gmail.com\",\r\n    \"idc\": \"AD15555\",\r\n    \"phoneNumber\" : \"0622113344\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_2}}",
+							"host": [
+								"{{base_url_2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Driver",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"fname\": \"maria\",\r\n    \"lname\": \"doe\",\r\n    \"email\": \"john@gmail.com\",\r\n    \"idc\": \"AD15555\",\r\n    \"phoneNumber\" : \"0611223344\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_2}}/4",
+							"host": [
+								"{{base_url_2}}"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_2}}/4",
+							"host": [
+								"{{base_url_2}}"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_2}}/5",
+							"host": [
+								"{{base_url_2}}"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Driver",
+			"item": [
+				{
+					"name": "Get All Driver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Driver",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fname\" : \"jack\",\r\n    \"lname\" : \"doe\",\r\n    \"email\" : \"john@gmail.com\",\r\n    \"idc\" : \"AD15555\",\r\n    \"status\" : \"ON_TRIP\",\r\n    \"availabilityStart\": \"08:00\",\r\n    \"availabilityEnd\": \"17:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Driver",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"fname\": \"maria\",\r\n    \"lname\": \"doe\",\r\n    \"email\": \"john@gmail.com\",\r\n    \"idc\": \"AD15555\",\r\n    \"status\": \"AVAILABLE\",\r\n    \"availabilityStart\": \"08:00:00\",\r\n    \"availabilityEnd\": \"17:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Driver",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Driver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle",
+			"item": [
+				{
+					"name": "createVehicleT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"modele\": \"Toyota Corolla\",\r\n  \"immatriculation\": \"ABC-123\",\r\n  \"kilometrage\": 15000,\r\n  \"statut\": \"AVAILABLE\",\r\n  \"type\": \"BERLINE\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8087/api/vehicules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"vehicules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllVehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8087/api/vehicules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"vehicules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateVehicle",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"modele\": \"Toyota Camry\",\r\n  \"immatriculation\": \"XYZ-789\",\r\n  \"kilometrage\": 20000,\r\n  \"statut\": \"UNAVAILABLE\",\r\n  \"type\": \"VAN\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8087/api/vehicules/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"vehicules",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteVehicle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8087/api/vehicules/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"vehicules",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8087/api/vehicules/analytics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"vehicules",
+								"analytics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservations",
+			"item": [
+				{
+					"name": "getAllReservations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8087/api/reservations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createReservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departureAddress\": {\r\n    \"city\": \"Paris\",\r\n    \"district\": \"Downtown\"\r\n  },\r\n  \"arrivalAddress\": {\r\n    \"city\": \"Versailles\",\r\n    \"district\": \"Centre\"\r\n  },\r\n  \"distanceKm\": 80.5,\r\n  \"startTime\": \"2024-11-15T08:30:00\",\r\n  \"endTime\": \"2024-11-15T10:00:00\",\r\n  \"status\": \"CREATED\",\r\n  \"driverId\": 1,\r\n  \"clientId\": 1,\r\n  \"vehicleId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8087/api/reservations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteReservation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8087/api/reservations/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"reservations",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReservation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departureAddress\": {\r\n    \"city\": \"Paris\",\r\n    \"district\": \"Downtown\"\r\n  },\r\n  \"arrivalAddress\": {\r\n    \"city\": \"Versailles\",\r\n    \"district\": \"Centre\"\r\n  },\r\n  \"distanceKm\": 20,\r\n  \"startTime\": \"2024-11-15T08:30:00\",\r\n  \"endTime\": \"2024-11-15T10:00:00\",\r\n  \"status\": \"CREATED\",\r\n  \"driverId\": 1,\r\n  \"clientId\": 1,\r\n  \"vehicleId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8087/api/reservations/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"reservations",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getReservation",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "analytics",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

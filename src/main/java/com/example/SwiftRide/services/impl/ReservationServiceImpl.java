@@ -1,11 +1,13 @@
 package com.example.SwiftRide.services.impl;
 
+import com.example.SwiftRide.dto.ReservationAnalyticsDTO;
 import com.example.SwiftRide.dto.ReservationDTO.ReservationRequestDTO;
 import com.example.SwiftRide.dto.ReservationDTO.ReservationResponseDTO;
 import com.example.SwiftRide.exceptions.DistanceTooLongException;
 import com.example.SwiftRide.exceptions.DriverNotAvailableException;
 import com.example.SwiftRide.exceptions.ReservationStatusException;
 import com.example.SwiftRide.exceptions.VehicleNotAvailableException;
+import com.example.SwiftRide.models.Address;
 import com.example.SwiftRide.models.Reservation;
 import com.example.SwiftRide.repositories.ReservationRepository;
 import com.example.SwiftRide.services.ReservationService;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -129,5 +132,44 @@ public class ReservationServiceImpl implements ReservationService {
         return reservation.getStatus().equals("CONFIRMED") || reservation.getStatus().equals("COMPLETED");
     }
 
+    @Override
+    public ReservationAnalyticsDTO getAnalytics() {
+        List<Reservation> reservations = reservationRepository.findAll();
 
+        double averagePricePerKm = reservations.stream()
+                .filter(r -> r.getDistanceKm() > 0)
+                .mapToDouble(r -> r.getPrice() / r.getDistanceKm())
+                .average()
+                .orElse(0);
+
+        double averageDistance = reservations.stream()
+                .mapToDouble(Reservation::getDistanceKm)
+                .average()
+                .orElse(0);
+
+        Map<String, Integer> reservationsByTimeSlot = reservations.stream()
+                .collect(Collectors.groupingBy(
+                        r -> getTimeSlot(r.getStartTime()), // Plage horaire
+                        Collectors.summingInt(r -> 1)
+                ));
+
+        Map<Address, Integer> mostRequestedZones = reservations.stream()
+                .collect(Collectors.groupingBy(
+                        Reservation::getDepartureAddress, // Zone géographique
+                        Collectors.summingInt(r -> 1)
+                ));
+
+        ReservationAnalyticsDTO dto = new ReservationAnalyticsDTO();
+        dto.setAveragePricePerKm(averagePricePerKm);
+        dto.setAverageDistance(averageDistance);
+        dto.setReservationsByTimeSlot(reservationsByTimeSlot);
+        dto.setMostRequestedZones(mostRequestedZones);
+
+        return dto;
+    }
+
+    private String getTimeSlot(LocalDateTime time) {
+        int hour = time.getHour();
+        return hour + "h-" + (hour + 1) + "h";
+    }
 }
